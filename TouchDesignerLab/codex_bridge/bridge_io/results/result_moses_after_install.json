@@ -1,0 +1,7 @@
+{
+  "id": "moses_after_install",
+  "ok": true,
+  "action": "snapshot",
+  "snapshot": "snapshot_moses_after_install.json",
+  "operatorCount": 1051
+}

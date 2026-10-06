@@ -1,0 +1,9 @@
+{
+  "id": "laserwave_texts_20261004_162035",
+  "action": "snapshot_texts",
+  "roots": [
+    "/project1/LaserWave01",
+    "/project1/LaserWave02",
+    "/project1/LaserWave03"
+  ]
+}

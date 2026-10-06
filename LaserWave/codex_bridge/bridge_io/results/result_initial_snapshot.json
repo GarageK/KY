@@ -1,0 +1,7 @@
+{
+  "id": "initial_snapshot",
+  "ok": true,
+  "action": "snapshot",
+  "snapshot": "snapshot_initial_snapshot.json",
+  "operatorCount": 3140
+}

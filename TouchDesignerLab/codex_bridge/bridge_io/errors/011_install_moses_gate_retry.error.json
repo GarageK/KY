@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "command": "011_install_moses_gate_retry.json",
+  "error": "'td.ParCollection' object has no attribute 'value0' Context:/project1/LaserWave01/Shape",
+  "traceback": "Traceback (most recent call last):\n  File \"/project1/AI_BRIDGE/bridge_execute\", line 288, in _poll\n  File \"/project1/AI_BRIDGE/bridge_execute\", line 258, in _process_command\n  File \"C:\\Work\\TouchDesigner\\TouchDesignerLab\\codex_bridge\\install_moses_gate.py\", line 300, in <module>\n    install()\n  File \"C:\\Work\\TouchDesigner\\TouchDesignerLab\\codex_bridge\\install_moses_gate.py\", line 289, in install\n    results.append(_install_target(component, index))\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Work\\TouchDesigner\\TouchDesignerLab\\codex_bridge\\install_moses_gate.py\", line 261, in _install_target\n    component.op(\"Shape\").par.value0 = \"Line\"\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntd.tdAttributeError: 'td.ParCollection' object has no attribute 'value0' Context:/project1/LaserWave01/Shape\n"
+}

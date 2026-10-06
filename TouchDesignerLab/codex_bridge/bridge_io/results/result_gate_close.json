@@ -1,0 +1,10 @@
+{
+  "id": "gate_close",
+  "ok": true,
+  "action": "set_gate_preview",
+  "component": "/project1/LaserWave01",
+  "applied": {
+    "Virtualapproach": 0.0,
+    "Virtualpresent": false
+  }
+}

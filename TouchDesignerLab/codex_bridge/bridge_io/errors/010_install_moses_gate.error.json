@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "command": "010_install_moses_gate.json",
+  "error": "name '_ensure_backup' is not defined",
+  "traceback": "Traceback (most recent call last):\n  File \"/project1/AI_BRIDGE/bridge_execute\", line 287, in _poll\n  File \"/project1/AI_BRIDGE/bridge_execute\", line 257, in _process_command\n  File \"C:\\Work\\TouchDesigner\\TouchDesignerLab\\codex_bridge\\install_moses_gate.py\", line 288, in <module>\n    install()\n  File \"C:\\Work\\TouchDesigner\\TouchDesignerLab\\codex_bridge\\install_moses_gate.py\", line 272, in install\n    backup = _ensure_backup()\n             ^^^^^^^^^^^^^^\nNameError: name '_ensure_backup' is not defined\n"
+}

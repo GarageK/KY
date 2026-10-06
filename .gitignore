@@ -1,0 +1,16 @@
+# TouchDesigner runtime and machine-local files
+**/Log/
+*.log
+*.log.txt
+
+# Bridge command inbox is transient; processed commands and results are evidence.
+**/codex_bridge/bridge_io/inbox/
+**/codex_bridge/bridge_io/commands/
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.bak
+
