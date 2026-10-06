@@ -269,6 +269,48 @@ def _process_command(command_path, folders):
             "installed": installed,
             "laserOutputLocked": True,
         }
+    elif action == "install_interaction_modes":
+        installer = _bridge_folder() / "install_interaction_modes.py"
+        if not installer.exists():
+            raise ValueError("Reviewed interaction-mode installer was not found")
+        namespace = dict(globals())
+        namespace.update({"__name__": "codex_interaction_mode_installer", "__file__": str(installer)})
+        exec(compile(installer.read_text(encoding="utf-8-sig"), str(installer), "exec"), namespace, namespace)
+        installed = []
+        for path in ("/project1/LaserWave01", "/project1/LaserWave02", "/project1/LaserWave03"):
+            selector = op(path + "/InteractionMode")
+            output = op(path + "/interaction_out")
+            if selector is not None and output is not None:
+                installed.append(path)
+        result = {
+            "id": command_id,
+            "ok": len(installed) > 0,
+            "action": action,
+            "installed": installed,
+            "defaultMode": "Hybrid",
+            "laserOutputLocked": True,
+        }
+    elif action == "set_interaction_mode":
+        component_path = str(command.get("component") or "/project1/LaserWave01")
+        allowed_components = {
+            "/project1/LaserWave01", "/project1/LaserWave02", "/project1/LaserWave03"
+        }
+        if component_path not in allowed_components:
+            raise ValueError("component is outside the interaction-mode allowlist")
+        selector = op(component_path + "/InteractionMode")
+        if selector is None:
+            raise ValueError("InteractionMode is not installed")
+        mode = str(command.get("mode") or "")
+        if mode not in {"Traditional", "Moses", "Hybrid"}:
+            raise ValueError("mode must be Traditional, Moses, or Hybrid")
+        selector.par.Value0 = mode
+        result = {
+            "id": command_id,
+            "ok": True,
+            "action": action,
+            "component": component_path,
+            "mode": mode,
+        }
     elif action == "set_gate_preview":
         component_path = str(command.get("component") or "/project1/LaserWave01")
         allowed_components = {
@@ -321,7 +363,7 @@ def _process_command(command_path, folders):
         result = {"id": command_id, "ok": True, "action": action, "folder": str(project_folder)}
     else:
         raise ValueError(
-            "Unsupported action: {!r}. Allowed: ping, snapshot, snapshot_texts, install_moses_gate, set_gate_preview, capture_gate_preview, save_development_project".format(action)
+            "Unsupported action: {!r}. Allowed: ping, snapshot, snapshot_texts, install_moses_gate, install_interaction_modes, set_interaction_mode, set_gate_preview, capture_gate_preview, save_development_project".format(action)
         )
 
     _write_json(folders["results"] / ("result_" + command_id + ".json"), result)

@@ -9,7 +9,7 @@ def _folder():
 
 
 folder = _folder()
-for filename in ("bootstrap.py", "install_moses_gate.py"):
+for filename in ("bootstrap.py", "install_moses_gate.py", "install_interaction_modes.py"):
     path = folder / filename
     if not path.exists():
         raise RuntimeError("Missing required file: " + str(path))
@@ -20,4 +20,4 @@ for filename in ("bootstrap.py", "install_moses_gate.py"):
     namespace.update({"__name__": "codex_continue_" + path.stem, "__file__": str(path)})
     exec(compile(path.read_text(encoding="utf-8-sig"), str(path), "exec"), namespace, namespace)
 
-debug("Codex bridge and Moses Gate are ready. Save TouchDesignerLab.toe and keep it open.")
+debug("Codex bridge, Moses Gate, and interaction modes are ready. Save TouchDesignerLab.toe and keep it open.")
