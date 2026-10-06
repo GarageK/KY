@@ -131,12 +131,30 @@ def _install_routes(component, mode_widget):
     # Hybrid is the already-tested route: spring deformation followed by gate.
     _connect(hybrid_gate, 0, spring)
 
-    # Moses-only receives the original generated shape and intentionally
-    # bypasses spring deformation.
+    # Moses uses its own Spring SOP so it keeps the wave motion without the
+    # original person's attractor/collision input on spring1 input 1.
+    moses_wave = component.op("moses_wave_spring")
+    if moses_wave is None:
+        moses_wave = component.copy(spring, name="moses_wave_spring", includeDocked=False)
+        moses_wave.tags.add(TAG)
+    elif TAG not in moses_wave.tags:
+        raise RuntimeError(moses_wave.path + " already exists and is not installer-owned")
+    # A copied multi-input Spring retains both original wires. Disconnect all
+    # copied inputs first, then add only the shape source.
+    for connector in reversed(list(moses_wave.inputConnectors)):
+        try:
+            connector.disconnect()
+        except Exception:
+            pass
+    _connect(moses_wave, 0, shape)
+    moses_wave.nodeX = 500
+    moses_wave.nodeY = 250
+    moses_wave.color = (0.72, 0.52, 0.16)
+
     moses_only = component.op("moses_only_gate") or component.create(scriptSOP, "moses_only_gate")
     if TAG not in moses_only.tags:
         moses_only.tags.add(TAG)
-    _connect(moses_only, 0, shape)
+    _connect(moses_only, 0, moses_wave)
     moses_only.par.callbacks = callbacks
     moses_only.nodeX = 450
     moses_only.nodeY = 150

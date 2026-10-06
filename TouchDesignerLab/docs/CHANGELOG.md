@@ -1,5 +1,20 @@
 # Change log
 
+## Moses wave revision - virtual verification completed
+
+- Changed Moses from a straight-line source to a dedicated wave Spring source.
+- Kept the original person-avoidance attractor disconnected in Moses.
+- Preserved Hybrid as original person avoidance followed by the Moses gate.
+- Created `backups/TouchDesignerLab.pre_moses_wave.toe` before applying the
+  network migration.
+- Added `inspect_interaction_state`, a compact bridge diagnostic that reports
+  mode routes, gate state, safety values, and targeted OP issues without a full
+  network snapshot.
+- Verified all three Moses wave routes have no person-attractor input.
+- Verified LaserWave01 visually in closed and open virtual-gate states.
+- Saved all three components in Moses mode with gates closed and laser output
+  locked. Camera and physical laser behavior remain unverified.
+
 ## Context-efficient workflow - 2026-10-07
 
 - Established a difference-first inspection policy.

@@ -1,0 +1,41 @@
+{
+  "id": "inspect_moses_wave_lw3_20261007",
+  "ok": true,
+  "action": "inspect_interaction_state",
+  "component": "/project1/LaserWave03",
+  "mode": "Hybrid",
+  "routes": {
+    "mosesWaveInputs": [
+      "/project1/LaserWave03/switch_shape"
+    ],
+    "mosesGateInputs": [
+      "/project1/LaserWave03/moses_wave_spring"
+    ],
+    "hybridGateInputs": [
+      "/project1/LaserWave03/spring1"
+    ],
+    "modeSwitchInputs": [
+      "/project1/LaserWave03/null6",
+      "/project1/LaserWave03/moses_only_gate",
+      "/project1/LaserWave03/moses_gate"
+    ],
+    "outputInputs": [
+      "/project1/LaserWave03/interaction_mode_switch"
+    ],
+    "laserSop": "/project1/LaserWave03/interaction_out"
+  },
+  "gate": {
+    "state": "CLOSED",
+    "amount": 0.0,
+    "detected": false
+  },
+  "safety": {
+    "brightness": 0.0,
+    "testMode": false,
+    "deviceActive": false,
+    "redScale": 0.0,
+    "greenScale": 0.0,
+    "blueScale": 0.0
+  },
+  "issues": []
+}

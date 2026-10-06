@@ -1,0 +1,10 @@
+{
+  "id": "close_moses_lw3_20261007",
+  "ok": true,
+  "action": "set_gate_preview",
+  "component": "/project1/LaserWave03",
+  "applied": {
+    "Virtualpresent": false,
+    "Virtualapproach": 0.0
+  }
+}

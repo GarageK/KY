@@ -1,0 +1,7 @@
+{
+  "id": "select_moses_lw2_20261007",
+  "ok": true,
+  "action": "set_interaction_mode",
+  "component": "/project1/LaserWave02",
+  "mode": "Moses"
+}

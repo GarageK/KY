@@ -311,6 +311,76 @@ def _process_command(command_path, folders):
             "component": component_path,
             "mode": mode,
         }
+    elif action == "inspect_interaction_state":
+        component_path = str(command.get("component") or "/project1/LaserWave01")
+        allowed_components = {
+            "/project1/LaserWave01", "/project1/LaserWave02", "/project1/LaserWave03"
+        }
+        if component_path not in allowed_components:
+            raise ValueError("component is outside the interaction-state allowlist")
+        component = op(component_path)
+        required = {
+            "selector": component.op("InteractionMode"),
+            "mosesWave": component.op("moses_wave_spring"),
+            "mosesGate": component.op("moses_only_gate"),
+            "hybridGate": component.op("moses_gate"),
+            "modeSwitch": component.op("interaction_mode_switch"),
+            "output": component.op("interaction_out"),
+            "laser": component.op("laser1"),
+            "device": component.op("laserdevice1"),
+            "brightness": component.op("Brightness"),
+            "testMode": component.op("TestMode"),
+            "control": component.op("MosesGateControl"),
+        }
+        missing = sorted(name for name, operator in required.items() if operator is None)
+        if missing:
+            raise ValueError("missing interaction operators: " + ", ".join(missing))
+
+        def _inputs(operator):
+            items = operator.inputs() if callable(operator.inputs) else operator.inputs
+            return [item.path if item is not None else None for item in items]
+
+        checked = [
+            required["mosesWave"], required["mosesGate"], required["hybridGate"],
+            required["modeSwitch"], required["output"], required["laser"], required["device"]
+        ]
+        def _messages(operator, name):
+            value = getattr(operator, name)
+            return list(value() if callable(value) else value)
+
+        result = {
+            "id": command_id,
+            "ok": True,
+            "action": action,
+            "component": component_path,
+            "mode": _json_value(required["selector"].par.Value0.eval()),
+            "routes": {
+                "mosesWaveInputs": _inputs(required["mosesWave"]),
+                "mosesGateInputs": _inputs(required["mosesGate"]),
+                "hybridGateInputs": _inputs(required["hybridGate"]),
+                "modeSwitchInputs": _inputs(required["modeSwitch"]),
+                "outputInputs": _inputs(required["output"]),
+                "laserSop": _json_value(required["laser"].par.sop.eval()),
+            },
+            "gate": {
+                "state": _json_value(required["control"].par.State.eval()),
+                "amount": _json_value(required["control"].par.Gateamount.eval()),
+                "detected": _json_value(required["control"].par.Detected.eval()),
+            },
+            "safety": {
+                "brightness": _json_value(required["brightness"].par.Value0.eval()),
+                "testMode": _json_value(required["testMode"].par.Value0.eval()),
+                "deviceActive": _json_value(required["device"].par.active.eval()),
+                "redScale": _json_value(required["device"].par.redscale.eval()),
+                "greenScale": _json_value(required["device"].par.greenscale.eval()),
+                "blueScale": _json_value(required["device"].par.bluescale.eval()),
+            },
+            "issues": [
+                {"path": item.path, "errors": _messages(item, "errors"), "warnings": _messages(item, "warnings")}
+                for item in checked
+                if _messages(item, "errors") or _messages(item, "warnings")
+            ],
+        }
     elif action == "set_gate_preview":
         component_path = str(command.get("component") or "/project1/LaserWave01")
         allowed_components = {
@@ -378,7 +448,7 @@ def _process_command(command_path, folders):
         result = {"id": command_id, "ok": True, "action": action, "folder": str(project_folder)}
     else:
         raise ValueError(
-            "Unsupported action: {!r}. Allowed: ping, snapshot, snapshot_texts, install_moses_gate, install_interaction_modes, set_interaction_mode, set_gate_preview, capture_gate_preview, save_development_project".format(action)
+            "Unsupported action: {!r}. Allowed: ping, snapshot, snapshot_texts, install_moses_gate, install_interaction_modes, set_interaction_mode, inspect_interaction_state, set_gate_preview, capture_gate_preview, save_development_project".format(action)
         )
 
     _write_json(folders["results"] / ("result_" + command_id + ".json"), result)

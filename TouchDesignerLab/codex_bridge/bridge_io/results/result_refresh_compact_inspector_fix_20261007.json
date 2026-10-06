@@ -1,0 +1,11 @@
+{
+  "id": "refresh_compact_inspector_fix_20261007",
+  "ok": true,
+  "action": "install_moses_gate",
+  "installed": [
+    "/project1/LaserWave01",
+    "/project1/LaserWave02",
+    "/project1/LaserWave03"
+  ],
+  "laserOutputLocked": true
+}

@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "command": "133_inspect_moses_wave.json",
+  "error": "'builtin_function_or_method' object is not iterable",
+  "traceback": "Traceback (most recent call last):\n  File \"/project1/AI_BRIDGE/bridge_execute\", line 459, in _poll\n  File \"/project1/AI_BRIDGE/bridge_execute\", line 373, in _process_command\n  File \"/project1/AI_BRIDGE/bridge_execute\", line 374, in <listcomp>\nTypeError: 'builtin_function_or_method' object is not iterable\n"
+}

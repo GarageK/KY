@@ -1,0 +1,12 @@
+{
+  "id": "open_moses_wave_gate_20261007",
+  "ok": true,
+  "action": "set_gate_preview",
+  "component": "/project1/LaserWave01",
+  "applied": {
+    "Virtualpresent": true,
+    "Virtualx": 0.0,
+    "Virtualapproach": 1.0,
+    "Triggerapproach": 0.6
+  }
+}

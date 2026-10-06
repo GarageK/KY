@@ -5,7 +5,7 @@
 | Mode | Geometry route | Intended behavior |
 |---|---|---|
 | Traditional | Original `null6` output | Preserve the original LaserWave behavior and Test Mode selection. |
-| Moses | `switch_shape` to `moses_only_gate` | Open a blank gate without Spring deformation. |
+| Moses | `switch_shape` to `moses_wave_spring` to `moses_only_gate` | Keep wave motion without the original person-avoidance input, then open a blank gate. |
 | Hybrid | `spring1` to `moses_gate` | Apply the original Spring response, then open the Moses gate. |
 
 The final `interaction_mode_switch` feeds `interaction_out`, which is the only
@@ -26,12 +26,33 @@ fixture is implemented and verified.
 
 - Traditional route: monitor preview displayed the original continuous Spring
   waveform.
-- Moses route: monitor preview displayed a straight line with a central gate.
+- Moses route originally displayed a straight line with a central gate. This
+  route was superseded on 2026-10-07 by the wave-only Spring route described
+  below.
 - Hybrid route: monitor preview displayed Spring deformation with a central
   gate.
 - The camera was not connected, so live-person response in Traditional and
   Hybrid modes was not verified.
 - Brightness was zero, Test Mode was off, and Laser Device output was inactive.
+
+## Moses wave revision - virtual verification completed
+
+- Moses now has a dedicated `moses_wave_spring` copied from the original
+  `spring1` settings.
+- Input 0 receives the normal generated shape.
+- Input 1 is deliberately disconnected so camera/person attractors do not
+  produce the Traditional avoidance response.
+- The resulting wave geometry enters `moses_only_gate`, which opens the gate at
+  the detected person position.
+- Hybrid continues to use the original `spring1` with its person-attractor
+  input before applying the gate.
+- Compact route inspection confirmed that `moses_wave_spring` has only
+  `switch_shape` as its input on LaserWave01..03; the original `copy1` person
+  attractor is not connected.
+- A closed-state monitor capture confirmed a continuous wave.
+- An open-state monitor capture confirmed the same wave with a central gate.
+- All three components were saved in Moses mode with their virtual gates closed
+  and physical laser output locked.
 
 ## Safety
 
