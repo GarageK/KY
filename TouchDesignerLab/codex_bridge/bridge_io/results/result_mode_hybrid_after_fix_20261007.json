@@ -1,0 +1,7 @@
+{
+  "id": "mode_hybrid_after_fix_20261007",
+  "ok": true,
+  "action": "set_interaction_mode",
+  "component": "/project1/LaserWave01",
+  "mode": "Hybrid"
+}

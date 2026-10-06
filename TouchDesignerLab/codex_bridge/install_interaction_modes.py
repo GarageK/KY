@@ -66,12 +66,15 @@ def _copy_widget(component, source_name, target_name, label, value):
 
 
 def _slider(component, name, label, value, minimum, maximum):
+    existed = component.op(name) is not None
     widget = _copy_widget(component, "sliderHorz", name, label, value)
     parameter = widget.par.Value0
     parameter.min = minimum
     parameter.max = maximum
     parameter.clampMin = True
     parameter.clampMax = True
+    if not existed:
+        parameter.val = value
     return widget
 
 
@@ -83,9 +86,12 @@ def _bind(control, parameter_name, expression):
 
 
 def _install_ui(component, control):
+    mode_exists = component.op("InteractionMode") is not None
     mode = _copy_widget(component, "Shape", "InteractionMode", "Interaction Mode", "Hybrid")
     mode.par.Menunames = "Traditional Moses Hybrid"
     mode.par.Menulabels = "Traditional Moses Hybrid"
+    if not mode_exists:
+        mode.par.Value0 = "Hybrid"
 
     _copy_widget(component, "TestMode", "MosesEnable", "Moses Gate", True)
     _copy_widget(component, "TestMode", "MosesVirtualMode", "Moses Virtual Test", True)
@@ -96,14 +102,14 @@ def _install_ui(component, control):
     _slider(component, "MosesCloseTime", "Moses Close Time", 1.20, 0.05, 10.0)
     _slider(component, "MosesHoldSeconds", "Moses Hold Time", 1.00, 0.0, 30.0)
 
-    _bind(control, "Enable", "op('../MosesEnable').par.Value0")
-    _bind(control, "Virtualmode", "op('../MosesVirtualMode').par.Value0")
-    _bind(control, "Gatewidth", "op('../MosesGateWidth').par.Value0")
-    _bind(control, "Safetymargin", "op('../MosesSafetyMargin').par.Value0")
-    _bind(control, "Triggerdistance", "op('../MosesTriggerDistance').par.Value0")
-    _bind(control, "Opentime", "op('../MosesOpenTime').par.Value0")
-    _bind(control, "Closetime", "op('../MosesCloseTime').par.Value0")
-    _bind(control, "Holdseconds", "op('../MosesHoldSeconds').par.Value0")
+    _bind(control, "Enable", "parent().op('MosesEnable').par.Value0")
+    _bind(control, "Virtualmode", "parent().op('MosesVirtualMode').par.Value0")
+    _bind(control, "Gatewidth", "parent().op('MosesGateWidth').par.Value0")
+    _bind(control, "Safetymargin", "parent().op('MosesSafetyMargin').par.Value0")
+    _bind(control, "Triggerdistance", "parent().op('MosesTriggerDistance').par.Value0")
+    _bind(control, "Opentime", "parent().op('MosesOpenTime').par.Value0")
+    _bind(control, "Closetime", "parent().op('MosesCloseTime').par.Value0")
+    _bind(control, "Holdseconds", "parent().op('MosesHoldSeconds').par.Value0")
 
     # The existing panel is vertically aligned. Increase its height so the new
     # controls are visible in the same Run/Perform UI.

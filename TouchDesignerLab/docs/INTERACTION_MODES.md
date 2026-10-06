@@ -22,6 +22,17 @@ do not simulate the original camera point cloud entering the Spring network.
 That limitation must remain visible until a calibrated virtual point-cloud
 fixture is implemented and verified.
 
+## Verification on 2026-10-07
+
+- Traditional route: monitor preview displayed the original continuous Spring
+  waveform.
+- Moses route: monitor preview displayed a straight line with a central gate.
+- Hybrid route: monitor preview displayed Spring deformation with a central
+  gate.
+- The camera was not connected, so live-person response in Traditional and
+  Hybrid modes was not verified.
+- Brightness was zero, Test Mode was off, and Laser Device output was inactive.
+
 ## Safety
 
 Installation forces Brightness to zero, Test Mode off, Laser Device inactive,

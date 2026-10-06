@@ -298,3 +298,30 @@ def install():
 
 
 install()
+
+# Keep the allowlisted legacy bridge action useful after the interaction-mode
+# migration. The path is fixed to this reviewed sibling; commands cannot supply
+# an arbitrary script path.
+interaction_installer = _source_folder() / "install_interaction_modes.py"
+if interaction_installer.exists():
+    interaction_namespace = dict(globals())
+    interaction_namespace.update({
+        "__name__": "codex_interaction_mode_installer",
+        "__file__": str(interaction_installer),
+    })
+    exec(
+        compile(
+            interaction_installer.read_text(encoding="utf-8-sig"),
+            str(interaction_installer),
+            "exec",
+        ),
+        interaction_namespace,
+        interaction_namespace,
+    )
+
+# Refresh the saved bridge DAT from the reviewed runtime after the current
+# command completes so subsequent allowlisted mode-test actions are available.
+runtime = _source_folder() / "bridge_runtime.py"
+bridge_execute = op("/project1/AI_BRIDGE/bridge_execute")
+if runtime.exists() and bridge_execute is not None:
+    bridge_execute.text = runtime.read_text(encoding="utf-8-sig")

@@ -331,11 +331,26 @@ def _process_command(command_path, folders):
         if rejected:
             raise ValueError("parameters outside preview allowlist: " + ", ".join(rejected))
         applied = {}
+        ui_parameters = {
+            "Enable": "MosesEnable",
+            "Virtualmode": "MosesVirtualMode",
+            "Gatewidth": "MosesGateWidth",
+            "Safetymargin": "MosesSafetyMargin",
+            "Triggerdistance": "MosesTriggerDistance",
+            "Opentime": "MosesOpenTime",
+            "Closetime": "MosesCloseTime",
+            "Holdseconds": "MosesHoldSeconds",
+        }
         for name, value in values.items():
             parameter = control.par[name]
             if parameter is None:
                 raise ValueError("missing gate parameter: " + name)
-            parameter.val = value
+            widget_name = ui_parameters.get(name)
+            widget = op(component_path + "/" + widget_name) if widget_name else None
+            if widget is not None:
+                widget.par.Value0 = value
+            else:
+                parameter.val = value
             applied[name] = _json_value(parameter.eval())
         result = {"id": command_id, "ok": True, "action": action, "component": component_path, "applied": applied}
     elif action == "capture_gate_preview":

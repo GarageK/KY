@@ -1,0 +1,7 @@
+{
+  "id": "binding_fix_20261007",
+  "ok": true,
+  "action": "snapshot",
+  "snapshot": "snapshot_binding_fix_20261007.json",
+  "operatorCount": 2
+}

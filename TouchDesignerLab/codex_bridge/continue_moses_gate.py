@@ -9,7 +9,7 @@ def _folder():
 
 
 folder = _folder()
-for filename in ("bootstrap.py", "install_moses_gate.py", "install_interaction_modes.py"):
+for filename in ("bootstrap.py", "install_moses_gate.py"):
     path = folder / filename
     if not path.exists():
         raise RuntimeError("Missing required file: " + str(path))

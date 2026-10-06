@@ -16,3 +16,8 @@ desktop.ini
 __pycache__/
 *.py[cod]
 
+# TouchDesigner rotating saves are local safety copies. The canonical project
+# and explicit milestone backups remain versioned.
+TouchDesignerLab/Backup/
+TouchDesignerLab/TouchDesignerLab.[0-9]*.toe
+

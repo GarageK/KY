@@ -1,0 +1,9 @@
+{
+  "id": "close_time_lw2_20261007",
+  "ok": true,
+  "action": "set_gate_preview",
+  "component": "/project1/LaserWave02",
+  "applied": {
+    "Closetime": 1.2
+  }
+}
