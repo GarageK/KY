@@ -1,5 +1,13 @@
 # Change log
 
+## Context-efficient workflow - 2026-10-07
+
+- Established a difference-first inspection policy.
+- Restricted full network snapshots to baseline and exceptional diagnosis.
+- Defined Markdown design documents as the primary restart state.
+- Prioritized compact bridge queries, focused `toeexpand` diffs, and minimal
+  visual captures.
+
 ## Baseline - 2026-10-07
 
 - Preserved the original LaserWave projects.
